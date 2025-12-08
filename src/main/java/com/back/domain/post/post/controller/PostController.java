@@ -15,7 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.stream.Collectors;
 
@@ -41,7 +40,6 @@ public class PostController {
     }
 
     @PostMapping("/posts/doWrite")
-    @ResponseBody
     @Transactional
     public String write(
             @Valid WriteForm form,
@@ -56,6 +54,8 @@ public class PostController {
                     .map(field -> "<!--%s--><li data-error-field-name=\"%s\">%s</li>".formatted(field[1], field[0], field[2]))
                     .sorted()
                     .collect(Collectors.joining("<br>"));
+
+            model.addAttribute("errorMessage", errorMessage);
 
             return "post/post/write";
         }
