@@ -23,11 +23,6 @@ import java.util.stream.Collectors;
 public class PostController {
     private final PostService postService;
 
-    @GetMapping("/posts/write")
-    public String showWrite() {
-        return "post/post/write";
-    }
-
     @AllArgsConstructor
     @Getter
     public static class WriteForm {
@@ -37,6 +32,12 @@ public class PostController {
         @NotBlank(message = "3-내용을 입력해주세요.")
         @Size(min = 2, max = 100, message = "4-내용은 2자 이상, 100자 이하로 입력 가능합니다.")
         String content;
+    }
+
+    @GetMapping("/posts/write")
+    public String showWrite(@Valid WriteForm form) {
+        
+        return "post/post/write";
     }
 
     @PostMapping("/posts/doWrite")
