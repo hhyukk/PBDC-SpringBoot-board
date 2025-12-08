@@ -90,9 +90,7 @@ public class PostController {
             String errorMessage = bindingResult
                     .getFieldErrors()
                     .stream()
-                    .map(FieldError::getDefaultMessage)
-                    .sorted()
-                    .map(message -> message.split("-", 2)[1])
+                    .map(fieldError -> fieldError.getField() + "-" + fieldError.getDefaultMessage())
                     .collect(Collectors.joining("<br>"));
 
             return getWriteFormHtml(errorFieldName, errorMessage, form.getTitle(), form.getContent());
