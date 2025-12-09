@@ -23,9 +23,7 @@ public class BaseEntity {
     @GeneratedValue(strategy = IDENTITY)
     private int id;
     @CreatedDate
-    @Getter(PRIVATE)
     private LocalDateTime createDate;
     @LastModifiedDate
-    @Getter(PROTECTED)
     private LocalDateTime modifyDate;
 }
